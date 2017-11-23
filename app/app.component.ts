@@ -1,4 +1,4 @@
-import { Component, ComponentRef, ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, ComponentRef, TemplateRef, ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver } from '@angular/core';
 
 import { User } from './auth-form/auth-form.interface';
 import { AuthFormComponent } from './auth-form/auth-form.component';
@@ -7,38 +7,24 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
   selector: 'app-root',
   template: `
     <div>
-      <button (click)="destroyComponent()">Destroy form</button>
-      <button (click)="moveComponent()">Move form</button>
       <div #entry></div>
+      <template #tmpl let-name let-location="location">
+        {{ name }}: {{ location }}
+      </template>
     </div>
   `
 })
 export class AppComponent implements AfterContentInit{
 
   @ViewChild('entry', { read: ViewContainerRef }) entry: ViewContainerRef;
-
-  component: ComponentRef<AuthFormComponent>;
-
-  constructor(private resolver: ComponentFactoryResolver) { }
+  @ViewChild('tmpl') tmpl: TemplateRef<any>;
 
   ngAfterContentInit() {
-    const authFormFactory = this.resolver.resolveComponentFactory(AuthFormComponent);
-    this.entry.createComponent(authFormFactory);
-    this.component = this.entry.createComponent(authFormFactory, 0);
-    this.component.instance.title = 'Create account';
-    this.component.instance.submitted.subscribe(this.loginUser);
-  }
+    this.entry.createEmbeddedView(this.tmpl, {
+      $implicit: 'Casanellas David',
+      location: 'Barcelona, Catalunya'
+    })
 
-  loginUser(user: User) {
-    console.log('Login', user);
-  }
-
-  destroyComponent() {
-    this.component.destroy();
-  }
-
-  moveComponent() {
-    this.entry.move(this.component.hostView, 1)
   }
 
 }
