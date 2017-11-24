@@ -3,9 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 
+import { FileSizePipe } from './filesize.pipe';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
