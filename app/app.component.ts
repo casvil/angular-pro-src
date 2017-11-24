@@ -1,25 +1,30 @@
-import { Component, ComponentRef, TemplateRef, ViewChild, ViewContainerRef, AfterContentInit, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { User } from './auth-form/auth-form.interface';
-import { AuthFormComponent } from './auth-form/auth-form.component';
+interface File {
+  name: string,
+  size: number,
+  type: string
+}
 
 @Component({
   selector: 'app-root',
   template: `
     <div>
-      <ng-container
-        [ngTemplateOutlet]="tmpl"
-        [ngTemplateOutletContext]="ctx">
-      </ng-container>
-      <template #tmpl let-name let-location="location">
-        {{ name }}: {{ location }}
-      </template>
+      <div *ngFor="let file of files">
+        <p>{{ file.name }}</p>
+        <p>{{ file.size }}</p>
+      </div>
     </div>
   `
 })
-export class AppComponent {
-  ctx = {
-    $implicit: 'David Casanellas',
-    location: 'Barcelona, Catalunya'
-  };
+export class AppComponent implements OnInit {
+  files: File[];
+
+  ngOnInit() {
+    this.files = [
+      { name: 'logo.svg', size: 2120109, type: 'image/svg'},
+      { name: 'banner.jpg', size: 18029, type: 'image/jpg'},
+      { name: 'background.png', size: 1784562, type: 'image/png'}
+    ]
+  }
 }
