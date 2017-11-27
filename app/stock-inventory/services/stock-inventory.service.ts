@@ -12,7 +12,7 @@ import { Product, Item } from '../models/product.interface';
 export class StockInventoryService {
   constructor(private http: Http) {}
 
-  getCartItems(): Observable<Item> {
+  getCartItems(): Observable<Item[]> {
     return this.http
       .get('/api/cart')
       .map((response: Response) => response.json())

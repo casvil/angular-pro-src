@@ -71,7 +71,7 @@ export class StockInventoryComponent implements OnInit {
 
     Observable
       .forkJoin(cart, products)
-      .subscribe(([cart, products]: [Item, Product[]]) => {
+      .subscribe(([cart, products]: [Item[], Product[]]) => {
 
         const myMap = products
           .map<[number, Product]>(product => [product.id, product]);
