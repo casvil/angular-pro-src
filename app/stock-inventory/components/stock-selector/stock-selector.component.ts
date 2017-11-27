@@ -22,7 +22,7 @@ import { Product } from '../../models/product.interface';
           step="10"
           min="10"
           max="1000"
-          formControlName="quantity" />
+          formControlName="quantity">
         <button
           type="button"
           (click)="onAdd()">
@@ -33,10 +33,14 @@ import { Product } from '../../models/product.interface';
   `
 })
 export class StockSelectorComponent {
-  @Input() parent: FormGroup;
-  @Input() products: Product[];
+  @Input()
+  parent: FormGroup;
 
-  @Output() added = new EventEmitter<any>();
+  @Input()
+  products: Product[];
+
+  @Output()
+  added = new EventEmitter<any>();
 
   onAdd() {
     this.added.emit(this.parent.get('selector').value);
