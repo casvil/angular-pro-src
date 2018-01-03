@@ -12,13 +12,4 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class MailAppComponent {
-
-  onActivate(event) {
-    console.log('Activate: ', event)
-  }
-
-  onDeactivate(event) {
-    console.log('Deactivate: ', event)
-  }
-}
+export class MailAppComponent {}
